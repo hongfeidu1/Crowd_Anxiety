@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+//设计一个点击移动代码，刚体、方向、速度、移动开关，Awake函数绑定刚体，Updare每帧计算数据，FixedUpdate实现匀速移动
+//分鼠标与触屏两种逻辑，做两个函数，判定点击状态，屏幕坐标转世界坐标，计算移动方向，进行移动，停止移动
+
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
