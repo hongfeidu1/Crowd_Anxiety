@@ -30,7 +30,7 @@ public class PlayerSensor : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         //获取所有范围内的collider
-        foreach(Collider2D collider in colliders)//foreach专用来遍历集合/数组
+        foreach (Collider2D collider in colliders)//foreach专用来遍历集合/数组
         {
             //判断tag
             if (collider.CompareTag("People"))
@@ -46,4 +46,10 @@ public class PlayerSensor : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        //临时用范围可视化
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
 }
