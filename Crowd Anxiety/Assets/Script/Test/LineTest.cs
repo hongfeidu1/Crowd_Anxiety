@@ -37,5 +37,6 @@ public class LineTest : MonoBehaviour
         }
 
         line.SetPositions(points);//一次性设置全部点坐标
+        Debug.Log(line.colorGradient);
     }
 }
