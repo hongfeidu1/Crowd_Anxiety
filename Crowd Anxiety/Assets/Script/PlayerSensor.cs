@@ -7,11 +7,20 @@ public class PlayerSensor : MonoBehaviour
 {
     public float detectionRadius = 5f;
 
-    //列表存储检测到的人
-    public List<GameObject> peopleList = new();
+    public struct PersonInfo
+    {
+        public Transform transform;
+        public float distance;
+    }
 
+    private readonly List<PersonInfo> peopleBuffer = new List<PersonInfo>();
+    public IReadOnlyList<PersonInfo> People => peopleBuffer;//外部只读
+
+    //——————这波傻逼了，竟然用两个列表存
+    //列表存储检测到的人
+    //public List<GameObject> peopleList = new();
     //列表存储每个范围内人的距离
-    public List<float> distanceList = new();
+    //public List<float> distanceList = new();
 
     //每帧检测
     private void Update()
@@ -23,8 +32,9 @@ public class PlayerSensor : MonoBehaviour
     private void DetectedPeople()
     {
         //初始化清空列表,每帧进行
-        peopleList.Clear();
-        distanceList.Clear();
+        //peopleList.Clear();
+        //distanceList.Clear();
+        peopleBuffer.Clear();
 
         //做一个圆形collider2D范围，以自身transform.position为圆心，半径detectionRadius做圆
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
@@ -35,13 +45,18 @@ public class PlayerSensor : MonoBehaviour
             //判断tag
             if (collider.CompareTag("People"))
             {
-                GameObject people = collider.gameObject;
+                //GameObject people = collider.gameObject;
 
-                peopleList.Add(people);//人加入列表
+                //peopleList.Add(people);//人加入列表
+                peopleBuffer.Add(new PersonInfo
+                {
+                    transform = collider.transform,
+                    distance = Vector2.Distance(transform.position, collider.transform.position)
+                });
 
-                float distance = Vector2.Distance(transform.position, people.transform.position);//计算距离
+                //float distance = Vector2.Distance(transform.position, people.transform.position);//计算距离
 
-                distanceList.Add(distance);//距离加入列表
+                //distanceList.Add(distance);//距离加入列表
             }
         }
     }
