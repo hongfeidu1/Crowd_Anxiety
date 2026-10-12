@@ -13,15 +13,18 @@ public class FloatingTextItem : MonoBehaviour
     [Tooltip("显示时长/s")]
     public float lifetime = 2.0f;
 
+    [HideInInspector] public FloatingTextPool pool;//存储对象池的一个公开引用（不显示在Inspector）
+
     private float timer;
     private bool busy;
 
-    public bool IsBusy => busy;//外部只读
+    public bool IsBusy => busy;//外部只读，是否显示
 
     private void Awake()
     {
         if(label == null)//懒加载，只有未获取时才执行查找
-            label = GetComponentInChildren<TextMeshProUGUI>(true);//自身及子物体查找，true保证在gameobject未勾选状态也能找到TMP组件
+            label = GetComponentInChildren<TextMeshProUGUI>(true);
+        //自身及子物体查找，true保证在gameobject未勾选状态也能找到TMP组件
         label.enabled = false;//组件初始不启用
     }
 
@@ -42,8 +45,13 @@ public class FloatingTextItem : MonoBehaviour
     //关闭组件以及对应的启用信息
     public void Hide()
     {
+        if (!busy) return;//已经不显示了，不重复隐藏
+
         label.enabled = false;
         busy = false;
+
+        if (pool != null)
+            pool.Release(this);
     }
 
     private void Update()
