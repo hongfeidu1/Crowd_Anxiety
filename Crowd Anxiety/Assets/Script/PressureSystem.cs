@@ -35,26 +35,26 @@ public class PressureSystem : MonoBehaviour
     [Min(0f)] public float fallSpeed = 0.2f;
 
     [Header("运行读数")]//测试
-    [SerializeField] private float targetPerssure;//瞬时压力
-    [SerializeField] private float perssure;//积累后的输出
+    [SerializeField] private float targetPressure;//瞬时压力
+    [SerializeField] private float pressure;//积累后的输出
     [SerializeField] private int peopleCount;
 
-    public float TargetPerssure => targetPerssure;
-    public float Perssure => perssure;
+    public float TargetPerssure => targetPressure;
+    public float Pressure => pressure;
     public int PeopleCount => peopleCount;
 
     private void Update()
     {
-        ComputeTargetPerssure();//计算瞬时压力
+        ComputeTargetPressure();//计算瞬时压力
         ApplyAccumulation();//累积压力
     }
 
-    private void ComputeTargetPerssure()
+    private void ComputeTargetPressure()
     {
         //由人数与距离计算瞬时压力值
 
         //初始化
-        targetPerssure = 0f;
+        targetPressure = 0f;
         peopleCount = 0;
 
         if (sensor == null) return;
@@ -78,16 +78,16 @@ public class PressureSystem : MonoBehaviour
             return;
 
         float t = Mathf.Clamp01(raw / Mathf.Max(0.001f, crowdScale));
-        targetPerssure = crowdCurve.Evaluate(t);
+        targetPressure = crowdCurve.Evaluate(t);
     }
 
     private void ApplyAccumulation()
     {
-        float speed = (targetPerssure > perssure) ? riseSpeed : fallSpeed;
+        float speed = (targetPressure > pressure) ? riseSpeed : fallSpeed;
 
         if (speed <= 0f)
-            perssure = targetPerssure;//判断为最小值0时，保持不变
+            pressure = targetPressure;//判断为最小值0时，保持不变
         else
-            perssure = Mathf.MoveTowards(perssure, targetPerssure, speed * Time.deltaTime);
+            pressure = Mathf.MoveTowards(pressure, targetPressure, speed * Time.deltaTime);
     }
 }
