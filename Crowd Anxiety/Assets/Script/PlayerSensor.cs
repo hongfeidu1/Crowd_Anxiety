@@ -13,7 +13,7 @@ public class PlayerSensor : MonoBehaviour
         public float distance;
     }
 
-    private readonly List<PersonInfo> peopleBuffer = new List<PersonInfo>();
+    private readonly List<PersonInfo> peopleBuffer = new List<PersonInfo>();//readonly在这里是变量不能换其它"list"
     public IReadOnlyList<PersonInfo> People => peopleBuffer;//外部只读
 
     //——————这波傻逼了，竟然用两个列表存

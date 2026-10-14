@@ -18,7 +18,7 @@ public class FloatingTextItem : MonoBehaviour
 
     [Header("淡入淡出")]
     [Range(0f, 0.5f)] public float fadeIn = 0.1f;
-    [Range(0.5f, 1f)] public float fadeOut = 0.2f;
+    [Range(0.05f, 1f)] public float fadeOut = 0.2f;
 
     [Header("运动速度")]
     [Tooltip("向上移动/秒")]
@@ -85,9 +85,9 @@ public class FloatingTextItem : MonoBehaviour
 
         transform.position = worldPosition;
         transform.localScale = Vector3.one * UnityEngine.Random.Range(scaleMin, scaleMax);
-        //label.enabled = true;
+        
         drift = new Vector2(UnityEngine.Random.Range(-driftX, driftX), riseSpeed);
-
+        label.enabled = true;
         //timer = lifetime;
         age = 0f;
         group.alpha = 0f;

@@ -25,7 +25,7 @@ public class HallucinationSpawner : MonoBehaviour
 
     [Header("对象间隔时间")]
     [Tooltip("单个对象在这段时间不会再次被选中")]
-    public float interval = 2.0f;
+    public float perPersonCooldown = 2.0f;
 
     [Header("距离权值")]
     [Tooltip("越近越大")]
@@ -124,7 +124,7 @@ public class HallucinationSpawner : MonoBehaviour
         if(personInfo.transform == null) return 0f;//对象已经被删除，返回权值为0
 
         if (lastSpawnAt.TryGetValue(personInfo.transform, out float last))
-            if (Time.time - last < interval)//做冷却判定，将处于冷却的对象权值设为0
+            if (Time.time - last < perPersonCooldown)//做冷却判定，将处于冷却的对象权值设为0
                 return 0f;
         float d = Mathf.Max(personInfo.distance, minDistance);
         return 1f / Mathf.Pow(d, nearBias);
