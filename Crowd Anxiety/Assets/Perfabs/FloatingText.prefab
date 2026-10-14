@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3016436170766778538}
   - component: {fileID: 2514697881530435527}
   - component: {fileID: 1718163947108877184}
+  - component: {fileID: -6383989968884113835}
   m_Layer: 5
   m_Name: FloatingText
   m_TagString: Untagged
@@ -148,5 +149,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 0}
-  lifetime: 2
+  lifeMin: 1
+  lifeMax: 2
+  fadeIn: 0.2
+  fadeOut: 0.5
+  riseSpeed: 0.5
+  driftX: 0.2
+  scaleMin: 1
+  scaleMax: 2.7
+  colorA: {r: 1, g: 0, b: 0, a: 1}
+  colorB: {r: 0.35220122, g: 0, b: 0, a: 1}
   pool: {fileID: 0}
+--- !u!225 &-6383989968884113835
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052478789876514641}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

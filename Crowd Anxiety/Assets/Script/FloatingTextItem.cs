@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;//TMP
+using TMPro;
+using System;//TMP
 
+//文本显示：时间、透明度、运动、尺寸、颜色
 public class FloatingTextItem : MonoBehaviour
 {
     [Header("引用")]
@@ -11,34 +13,84 @@ public class FloatingTextItem : MonoBehaviour
 
     [Header("时间")]
     [Tooltip("显示时长/s")]
-    public float lifetime = 2.0f;
+    public float lifeMin = 1.0f;
+    public float lifeMax = 2.0f;
+
+    [Header("淡入淡出")]
+    [Range(0f, 0.5f)] public float fadeIn = 0.1f;
+    [Range(0.5f, 1f)] public float fadeOut = 0.2f;
+
+    [Header("运动速度")]
+    [Tooltip("向上移动/秒")]
+    public float riseSpeed = 0.5f;
+
+    [Header("水平漂移")]
+    public float driftX = 0.2f;
+
+    [Header("大小")]
+    public float scaleMin = 1f;
+    public float scaleMax = 2f;
+
+    [Header("颜色")]
+    public Color colorA = new Color(0.85f, 0.85f, 0.85f, 1f);
+    public Color colorB = new Color(0.78f, 0.10f, 0.12f, 1f);
 
     [HideInInspector] public FloatingTextPool pool;//存储对象池的一个公开引用（不显示在Inspector）
 
-    private float timer;
+    CanvasGroup group;//控制透明度
+    float age;//记录文本生命时间
+    float life;//文本生命周期
+    float lifeFadeIn;
+    float lifeFadeOut;
+    Vector2 drift;
     private bool busy;
 
     public bool IsBusy => busy;//外部只读，是否显示
 
     private void Awake()
     {
-        if(label == null)//懒加载，只有未获取时才执行查找
+        EnsureRefs();
+    }
+
+    private void EnsureRefs()
+    {
+        if (label == null)//懒加载，只有未获取时才执行查找
             label = GetComponentInChildren<TextMeshProUGUI>(true);
         //自身及子物体查找，true保证在gameobject未勾选状态也能找到TMP组件
-        label.enabled = false;//组件初始不启用
+
+        if (group == null)
+        {
+            group = GetComponent<CanvasGroup>();
+            if (group == null)
+                group = gameObject.AddComponent<CanvasGroup>();//找不到就自己加
+        }
+
+        group.interactable = false;//不参与UI交互
+        group.blocksRaycasts = false;//不阻挡射线
+        group.alpha = 0f;//初始透明
+        //label.enabled = false;//组件初始不启用
     }
 
     //文本显示方法，将外部传入的文本内容和坐标位置转为组件内部对应内容，并启用组件
     public void Show(string content, Vector3 worldPosition)
     {
-        if (label == null)
-            label = GetComponentInChildren<TextMeshProUGUI>(true);//因为是对象池
+        EnsureRefs();
+
+        life = UnityEngine.Random.Range(lifeMin, lifeMax);//生命周期随机选值
+        lifeFadeIn = Mathf.Min(fadeIn, life * 0.4f);
+        lifeFadeOut = Mathf.Min(fadeOut, life * 0.5f);
 
         label.text = content;
-        transform.position = worldPosition;
-        label.enabled = true;
+        label.color = Color.Lerp(colorA, colorB, UnityEngine.Random.value);
 
-        timer = lifetime;
+        transform.position = worldPosition;
+        transform.localScale = Vector3.one * UnityEngine.Random.Range(scaleMin, scaleMax);
+        //label.enabled = true;
+        drift = new Vector2(UnityEngine.Random.Range(-driftX, driftX), riseSpeed);
+
+        //timer = lifetime;
+        age = 0f;
+        group.alpha = 0f;
         busy = true;
     }
 
@@ -59,8 +111,19 @@ public class FloatingTextItem : MonoBehaviour
         if (!busy)
             return;
 
-        timer -= Time.deltaTime;
-        if(timer < 0f )
+        age += Time.deltaTime;
+        transform.position += (Vector3)(drift * Time.deltaTime);
+
+        float a;
+        if (age < lifeFadeIn)
+            a = age / Mathf.Max(0.0001f, lifeFadeIn);//淡入
+        else if (age > life - lifeFadeOut)
+            a = Mathf.Clamp01((life - age) / Mathf.Max(0.0001f, lifeFadeOut));//淡出
+        else
+            a = 1f;//满
+
+        group.alpha = a;
+        if (age >= life)
             Hide();
     }
 }
