@@ -34,14 +34,23 @@ public class PressureSystem : MonoBehaviour
     [Tooltip("每秒下降")]
     [Min(0f)] public float fallSpeed = 0.2f;
 
+    [Header("心理阶段阈值一")]
+    [Tooltip("棘轮逻辑，数值只允许单向变化无法回落")]
+    [Range(0f, 1f)] public float stage2Threshold = 0.5f;//Threshold:门槛、入口、阈值、临界线
+    [Range(0f, 1f)] public float stage3Threshold = 0.8f;
+
     [Header("运行读数")]//测试
     [SerializeField] private float targetPressure;//瞬时压力
     [SerializeField] private float pressure;//积累后的输出
     [SerializeField] private int peopleCount;
+    [SerializeField] private int stage = 1;
+    [SerializeField] private float pressureFloor;
 
-    public float TargetPerssure => targetPressure;
+    public float TargetPressure => targetPressure;
     public float Pressure => pressure;
     public int PeopleCount => peopleCount;
+    public int Stage => stage;
+    public float PressureFloor => pressureFloor;
 
     private void Update()
     {
@@ -83,11 +92,32 @@ public class PressureSystem : MonoBehaviour
 
     private void ApplyAccumulation()
     {
-        float speed = (targetPressure > pressure) ? riseSpeed : fallSpeed;
+        float goal = Mathf.Max(targetPressure, pressureFloor);
+        float speed = (goal > pressure) ? riseSpeed : fallSpeed;
 
         if (speed <= 0f)
-            pressure = targetPressure;//判断为最小值0时，保持不变
+            pressure = goal;//判断为最小值0时，保持不变
         else
-            pressure = Mathf.MoveTowards(pressure, targetPressure, speed * Time.deltaTime);
+            pressure = Mathf.MoveTowards(pressure, goal, speed * Time.deltaTime);
+
+        UpdateStage();//判断是否进入下一阶段
+        
+        //兜底，防止意外
+        if(pressure < pressureFloor)
+            pressure = pressureFloor;
+    }
+
+    private void UpdateStage()
+    {
+        if(stage < 3 && pressure >= stage3Threshold)
+        {
+            stage = 3;
+            pressureFloor = stage3Threshold;
+        }
+        else if(stage < 2 && pressure >= stage2Threshold)
+        {
+            stage = 2;
+            pressureFloor = stage2Threshold;
+        }
     }
 }
