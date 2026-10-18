@@ -252,6 +252,77 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &78089728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78089730}
+  - component: {fileID: 78089729}
+  m_Layer: 0
+  m_Name: PeropheralHallucination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &78089729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78089728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 709ffc9028d06c14a9949d2cdf905a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: {fileID: 764608173}
+  pressureSystem: {fileID: 1637646030}
+  intervalMin: 0.5
+  intervalMax: 1
+  minPressure: 0.5
+  radiusMin: 0.4
+  radiusMax: 0.65
+  cameraDistance: 10
+  growMultiper: 2
+  lines:
+  - "\u5728\u7B11\u4EC0\u4E48\uFF1F"
+  - "\u4ED6\u4EEC\u5728\u770B\u6211..."
+  - "\u4E0D\u662F\u8BF4\u6211\uFF0C\u4E0D\u662F..."
+  - "\u6211\u60F3\u591A\u4E86"
+  - "\u522B\u518D\u60F3\u4E86"
+  - "\u5FEB\u8D70\uFF0C\u5FEB\u8D70"
+  - "\u5C31\u662F\u5728\u8BF4\u6211\uFF01"
+  - "\u522B\u8FD9\u6837"
+  - "\u51B7\u9759\uFF0C\u6211\u8981..."
+  - "\u522B\u770B\uFF0C\u522B\u542C..."
+  - "\u4ED6\u4EEC\u5728\u7B11"
+  - "\u6CA1\u6709\u4EBA"
+  - "\u6211\u4E0D\u5BF9\u52B2"
+  - "\u5728\u770B\u6211\uFF01"
+  - "\u4EC0\u4E48\u4E1C\u897F\uFF01"
+  - "\u6EDA\u554A\uFF01"
+  - "\u522B\u56DE\u5934"
+--- !u!4 &78089730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78089728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &108194764
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,16 +422,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressureSystem: {fileID: 1637646030}
   profile: {fileID: 11400000, guid: 6edbb1fe9ef71e545b63c25ee1fdbecc, type: 2}
-  instensityClam: 0.2
-  instensityTense: 0.8
+  instensityClam: 0.45
+  instensityTense: 0.65
   smoothnessClam: 0.4
-  smoothnessTense: 0.6
+  smoothnessTense: 1
   punchStrength: 0.1
   punchDuration: 0.5
   aberrationClam: 0
   aberrationTense: 0.9
-  grainClam: 0
-  grainTense: 0.8
+  grainClam: 0.3
+  grainTense: 1
 --- !u!1 &302718294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1623,20 @@ MonoBehaviour:
   - "\u4F60\u522B\u76F4\u63A5\u76EF\u7740"
   - "\u597D\u602A..."
   - "\u4F60\u8BF4...\u600E\u4E48\u597D\u610F\u601D"
+  - "\u54C8\u54C8\u54C8\u54C8"
+  - "\u6211\u611F\u89C9\u90A3\u8FB9..."
+  - "\u4F60\u8BF4\u4F1A\u4E0D\u4F1A\u662F..."
+  - "\u96BE\u9053\u8BF4\u662F..."
+  - "\u4F60\u5FEB\u770B"
+  - "\u4ED6\u60F3\u4EC0\u4E48\u5462"
+  - "\u79BB\u4ED6\u8FDC\u70B9"
+  - "\u770B\u4ED6\u957F\u5F97"
+  - "\u4F60\u522B\u7B11"
+  - "\u662F\u4E0D\u662F\u90A3\u4E2A\u4EBA"
+  - "\u5C31\u50CF\u662F\u90A3\u4EC0\u4E48..."
+  - "\u8D70\u8FD9\u4E48\u6162"
+  - "\u522B\u770B\u6211\u554A"
+  - "\u8FD9\u4EBA\u548B\u4E86"
   heightOffset: 1
   growStage1: 1
   growStage2: 1.4
@@ -1563,6 +1648,58 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713302055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &737861575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737861577}
+  - component: {fileID: 737861576}
+  m_Layer: 0
+  m_Name: TensionAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &737861576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737861575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20294551bd2b55c4d8e20b3537024aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressureSystem: {fileID: 1637646030}
+  heartbeatClip: {fileID: 8300000, guid: 67f2fabd801bf1a47ab56a9b3c0308cb, type: 3}
+  tinnitusClip: {fileID: 8300000, guid: 66d7a427f97d9824d8bd39c835c8ce86, type: 3}
+  heartbeatCalm: 0.07
+  heartbeatTense: 0.5
+  tinnitusVolume: 0.05
+  tinnitusFadeIn: 1
+  tinnitusFadeOut: 1
+--- !u!4 &737861577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737861575}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -2756,8 +2893,10 @@ SceneRoots:
   - {fileID: 764608172}
   - {fileID: 1692661130}
   - {fileID: 713302057}
+  - {fileID: 78089730}
   - {fileID: 1637646031}
   - {fileID: 405767839}
   - {fileID: 1059684375}
   - {fileID: 1719860177}
   - {fileID: 204539330}
+  - {fileID: 737861577}
