@@ -357,6 +357,10 @@ MonoBehaviour:
   smoothnessTense: 0.6
   punchStrength: 0.2
   punchDuration: 0.5
+  aberrationClam: 0
+  aberrationTense: 0.9
+  grainClam: 0
+  grainTense: 0.8
 --- !u!1 &302718294
 GameObject:
   m_ObjectHideFlags: 0
