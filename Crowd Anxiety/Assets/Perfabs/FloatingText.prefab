@@ -151,12 +151,12 @@ MonoBehaviour:
   label: {fileID: 0}
   lifeMin: 1
   lifeMax: 2
-  fadeIn: 0.2
-  fadeOut: 0.5
+  fadeIn: 0.3
+  fadeOut: 0.8
   riseSpeed: 0.5
   driftX: 0.2
   scaleMin: 1
-  scaleMax: 2.7
+  scaleMax: 2
   colorA: {r: 1, g: 0, b: 0, a: 1}
   colorB: {r: 0.35220122, g: 0, b: 0, a: 1}
   pool: {fileID: 0}

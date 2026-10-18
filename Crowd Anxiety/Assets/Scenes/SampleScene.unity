@@ -355,7 +355,7 @@ MonoBehaviour:
   instensityTense: 0.8
   smoothnessClam: 0.4
   smoothnessTense: 0.6
-  punchStrength: 0.2
+  punchStrength: 0.1
   punchDuration: 0.5
   aberrationClam: 0
   aberrationTense: 0.9
@@ -1536,8 +1536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensor: {fileID: 302718299}
+  pressureSystem: {fileID: 1637646030}
   pool: {fileID: 764608173}
-  baseInterval: 0.8
+  baseInterval: 1
   intervalJitter: 0.4
   perPersonCooldown: 5
   nearBias: 1
@@ -1552,6 +1553,9 @@ MonoBehaviour:
   - "\u597D\u602A..."
   - "\u4F60\u8BF4...\u600E\u4E48\u597D\u610F\u601D"
   heightOffset: 1
+  growStage1: 1
+  growStage2: 1.4
+  growStage3: 1.8
 --- !u!4 &713302057
 Transform:
   m_ObjectHideFlags: 0

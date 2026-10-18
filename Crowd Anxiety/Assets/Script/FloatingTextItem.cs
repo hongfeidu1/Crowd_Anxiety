@@ -45,6 +45,10 @@ public class FloatingTextItem : MonoBehaviour
     Vector2 drift;
     private bool busy;
 
+    //新增，文字浮现效果优化：随压力等级增大
+    private float baseScale;//本次显示的基础尺寸
+    private float growTo;//最终膨胀倍数
+
     public bool IsBusy => busy;//外部只读，是否显示
 
     private void Awake()
@@ -72,7 +76,7 @@ public class FloatingTextItem : MonoBehaviour
     }
 
     //文本显示方法，将外部传入的文本内容和坐标位置转为组件内部对应内容，并启用组件
-    public void Show(string content, Vector3 worldPosition)
+    public void Show(string content, Vector3 worldPosition, float growToMultiplier)
     {
         EnsureRefs();
 
@@ -83,8 +87,12 @@ public class FloatingTextItem : MonoBehaviour
         label.text = content;
         label.color = Color.Lerp(colorA, colorB, UnityEngine.Random.value);
 
+        //基础尺寸随机，膨胀在该基础上叠加
+        baseScale = UnityEngine.Random.Range(scaleMin, scaleMax);
+        growTo = Mathf.Max(1f, growToMultiplier);
+
         transform.position = worldPosition;
-        transform.localScale = Vector3.one * UnityEngine.Random.Range(scaleMin, scaleMax);
+        transform.localScale = Vector3.one * baseScale;
         
         drift = new Vector2(UnityEngine.Random.Range(-driftX, driftX), riseSpeed);
         label.enabled = true;
@@ -113,6 +121,11 @@ public class FloatingTextItem : MonoBehaviour
 
         age += Time.deltaTime;
         transform.position += (Vector3)(drift * Time.deltaTime);
+
+        //新增，随存活时间增大
+        float progress = Mathf.Clamp01(age / Mathf.Max(0.0001f, life));
+        float scle = baseScale * Mathf.Lerp(1f, growTo, progress);
+        transform.localScale = Vector3.one * scle;
 
         float a;
         if (age < lifeFadeIn)

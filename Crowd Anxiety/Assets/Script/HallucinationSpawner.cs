@@ -10,6 +10,8 @@ public class HallucinationSpawner : MonoBehaviour
     [Header("检测中心")]
     [Tooltip("player")]
     public PlayerSensor sensor;
+    [Tooltip("当前心理阶段，决定文字膨胀")]
+    public PressureSystem pressureSystem;
 
     [Header("文字模板")]
     [Tooltip("FloatingText")]
@@ -42,6 +44,14 @@ public class HallucinationSpawner : MonoBehaviour
     [Header("坐标偏差")]
     [Tooltip("与对象坐标的偏移量")]
     public float heightOffset = 1.0f;
+
+    [Header("阶段 - 文字膨胀上限")]
+    [Tooltip("一阶段：1 = 不碰撞")]
+    public float growStage1 = 1f;
+    [Tooltip("二阶段")]
+    public float growStage2 = 1.4f;
+    [Tooltip("三阶段")]
+    public float growStage3 = 1.8f;
 
     private float timer;
     private string lastline;//记录上一句文本，避免重复
@@ -79,9 +89,23 @@ public class HallucinationSpawner : MonoBehaviour
                                               baseInterval + intervalJitter));
 
         //调用FloatingItem中的文本显示脚本（文本内容，显示坐标）
-        item.Show(PickLine(), target.position + Vector3.up * heightOffset);
+        item.Show(PickLine(), target.position + Vector3.up * heightOffset, GetGrowMultiplier());
         //记录该对象的发言时间用于冷却判定
         lastSpawnAt[target] = Time.time;
+    }
+
+    private float GetGrowMultiplier()
+    {
+        if (pressureSystem == null) return 1f;
+        switch (pressureSystem.Stage)
+        {
+            case 2:
+                return growStage2;
+            case 3:
+                return growStage3;
+            default:
+                return growStage1;
+        }
     }
 
     //抽人，根据权值随机抽
