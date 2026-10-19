@@ -46,6 +46,11 @@ public class ScreenFade : MonoBehaviour
         StartCoroutine(FadeOutAndLoadRoutine(sceneIndex, duration));
     }
 
+    public void FadeOutAndLoadScene(string sceneName)
+    {
+        StartCoroutine(FadeOutAndLoadRoutine(sceneName));
+    }
+
     private IEnumerator FadeOutAndLoadRoutine(int sceneIndex, float duration)
     {
         yield return FadeRoutine(1f, duration);//变黑
@@ -53,6 +58,15 @@ public class ScreenFade : MonoBehaviour
         startBlackOnLoad = true;//淡入标识
         SceneManager.LoadScene(sceneIndex);//重载场景
     }
+
+    private IEnumerator FadeOutAndLoadRoutine(string sceneName)
+    {
+        yield return FadeRoutine(1f, defaultFadeTime);
+
+        startBlackOnLoad = true;
+        SceneManager.LoadScene(sceneName);
+    }
+
     private IEnumerator FadeRoutine(float targetAlpha, float duration)
     {
         if(image == null) yield break;

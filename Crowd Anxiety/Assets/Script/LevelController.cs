@@ -19,6 +19,12 @@ public class LevelController : MonoBehaviour
     [Tooltip("重载场景前的黑屏淡出时间")]
     public float failFadeTime = 1f;
 
+    [Header("通关")]
+    [Tooltip("通关后黑屏时长")]
+    public float clearFadeTime = 2f;
+    [Tooltip("最后一关返回哪个场景，Build Settings序号")]
+    public int mainMenuBuildIndex = 0;
+
     [Header("事件")]//死亡效果
     public UnityEvent onLevelCleared;
 
@@ -47,6 +53,30 @@ public class LevelController : MonoBehaviour
         if(cleared) return;
         cleared = true;
         onLevelCleared?.Invoke();//死亡事件，暂时为空
+
+        LoadNextLevel();
+    }
+
+    private void LoadNextLevel()
+    {
+        int current = SceneManager.GetActiveScene().buildIndex;
+        int next = current + 1;
+
+        if(next < SceneManager.sceneCountInBuildSettings)
+        {
+            if (ScreenFade.Instance != null)
+                ScreenFade.Instance.FadeOutAndLoadScene(next, clearFadeTime);
+            else
+                SceneManager.LoadScene(next);
+        }
+        else
+        {
+            //最后一关回到主菜单
+            if (ScreenFade.Instance != null)
+                ScreenFade.Instance.FadeOutAndLoadScene(mainMenuBuildIndex, clearFadeTime);
+            else
+                SceneManager.LoadScene(mainMenuBuildIndex);
+        }
     }
 
     private void Fail()
