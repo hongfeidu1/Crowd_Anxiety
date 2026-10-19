@@ -16,9 +16,11 @@ public class LevelController : MonoBehaviour
     [Range(0f, 1f)] public float failThreshold = 0.95f;
     [Tooltip("抗压时间上限")]
     public float failDuration = 5f;
+    [Tooltip("重载场景前的黑屏淡出时间")]
+    public float failFadeTime = 1f;
 
     [Header("事件")]//死亡效果
-    public UnityEvent onLeveCleared;
+    public UnityEvent onLevelCleared;
 
     private float overThresholdTimer;//记录抗压时间
     private bool cleared;
@@ -44,7 +46,7 @@ public class LevelController : MonoBehaviour
     {
         if(cleared) return;
         cleared = true;
-        onLeveCleared?.Invoke();//死亡事件，暂时为空
+        onLevelCleared?.Invoke();//死亡事件，暂时为空
     }
 
     private void Fail()
@@ -60,6 +62,9 @@ public class LevelController : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(index);
+        if (ScreenFade.Instance != null)
+            ScreenFade.Instance.FadeOutAndLoadScene(index, failFadeTime);
+        else
+            SceneManager.LoadScene(index);
     }
 }
