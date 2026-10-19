@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b3f03f0ddb097f34da566b42f5dbb706
+guid: 256c60259b953bd41b657c6a3f689a3b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Microsoft YaHei
+  - Noto Sans CJK
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
