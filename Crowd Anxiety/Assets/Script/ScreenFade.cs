@@ -64,9 +64,9 @@ public class ScreenFade : MonoBehaviour
         {
             t += Time.unscaledDeltaTime;
             SetAlpha(Mathf.Lerp(startAlpha, targetAlpha, Mathf.Clamp01(t / d)));
-            yield return null;
+            yield return null;//循环太快了，停帧让淡入淡出效果实现
         }
-        SetAlpha(targetAlpha);
+        SetAlpha(targetAlpha);//兜底黑屏/透明
     }
 
     private void SetAlpha(float v)

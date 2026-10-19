@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
 
+    [Header("被撞后惯性")]
+    [Tooltip("0=立刻停， 0.99=划很远")]
+    [Range(0f, 1f)] public float idleVelocityRetain = 0.5f;
+
     private Rigidbody2D rb;
 
     private Vector2 moveDirection;
@@ -32,7 +36,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isMoving)//当移动状态为false时，不移动
+        {
+            //因为碰撞挤压，会有惯性移动
+            //衰减
+            rb.velocity *= idleVelocityRetain;
             return;
+        }
 
         //移动持续匀速
         rb.MovePosition(rb.position + Time.fixedDeltaTime * moveSpeed * moveDirection);
