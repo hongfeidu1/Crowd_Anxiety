@@ -812,6 +812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   idleVelocityRetain: 0.5
+  stopSpeedThreshold: 0.05
 --- !u!114 &302718299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,7 +1153,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 1}
@@ -1287,7 +1288,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: e73e64f96665cd4419b3cbd35414cb43, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1864,7 +1865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressureSystem: {fileID: 1637646030}
   failThreshold: 0.95
-  failDuration: 5
+  failDuration: 3
   failFadeTime: 3
   clearFadeTime: 2
   mainMenuBuildIndex: 0
@@ -1994,9 +1995,9 @@ MonoBehaviour:
   pressureSystem: {fileID: 1637646030}
   heartbeatClip: {fileID: 8300000, guid: 67f2fabd801bf1a47ab56a9b3c0308cb, type: 3}
   tinnitusClip: {fileID: 8300000, guid: 66d7a427f97d9824d8bd39c835c8ce86, type: 3}
-  heartbeatCalm: 0.05
-  heartbeatTense: 0.5
-  tinnitusVolume: 0.05
+  heartbeatCalm: 0.1
+  heartbeatTense: 0.65
+  tinnitusVolume: 0.15
   tinnitusFadeIn: 1
   tinnitusFadeOut: 1
 --- !u!4 &737861577
@@ -2352,7 +2353,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: e73e64f96665cd4419b3cbd35414cb43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3175,6 +3176,7 @@ GameObject:
   - component: {fileID: 1712642264}
   - component: {fileID: 1712642263}
   - component: {fileID: 1712642262}
+  - component: {fileID: 1712642265}
   m_Layer: 0
   m_Name: LeverGoal
   m_TagString: Untagged
@@ -3214,18 +3216,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00079345703, y: 0.0011888146}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 8}
+  m_Size: {x: 0.6503296, y: 0.654312}
   m_EdgeRadius: 0
 --- !u!114 &1712642263
 MonoBehaviour:
@@ -3249,12 +3251,64 @@ Transform:
   m_GameObject: {fileID: 1712642261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75.1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 75.7312, y: 0.059, z: 0}
+  m_LocalScale: {x: 10.749286, y: 11.635795, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1712642265
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712642261}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 8f4e8322da411644c81862e9e5ac9177, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.047058824, a: 0.627451}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.64, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1712703461
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,7 +3397,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 1}
